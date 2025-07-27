@@ -56,10 +56,10 @@
     "tsx": "4.19.2",
     "typescript": "^5.3.2"
   },
-  "author": "Vitaliy Potapov",
+  "author": "Maksim Zakharov",
   "repository": {
     "type": "git",
-    "url": "git://github.com/vitalets/tinkoff-invest-api.git"
+    "url": "git://github.com/maksim-zakharov/tinkoff-invest-api.git"
   },
   "keywords": [
     "tinkoff",
