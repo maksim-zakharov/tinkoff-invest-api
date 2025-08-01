@@ -1,8 +1,8 @@
-# Прекращение поддержки старой версии OpenAPI
+# Прекращение поддержки старой версии openAPI
 
->**Важно**<br>
->С мая 2023 поддержка старой версии OpenAPI прекращается.
-Если вы используете [старую версию](https://github.com/Tinkoff/invest-openapi/) и серверы `api-invest.tinkoff.ru/openapi`, переключитесь на новую версию T-Invest API.
+>**Важно!**
+>С мая 2023 поддержка старой версии openapi прекращается.
+Клиенты, использующие [старую версию](https://github.com/Tinkoff/invest-openapi/) и использующие сервера api-invest.tinkoff.ru/openapi, должны перейти на новую версию Tinkoff invest API.
 
 В новой версии поддерживаются все изменения брокера:
 
@@ -11,21 +11,25 @@
 * стриминги сделок, портфеля и позиций;
 * большое количество новых методов и данных.
 
-## Преимущества торговли через новую версию
+## Торговать на новой версией API - выгодно
 
-При торговле через новую версию действует программа кешбэка — 10% с комиссии сделок, которые совершаются через API.
+Действует программа кэшбека в размере 10% с комиссии сделок, совершенных через API.
 
-## Полезные ссылки
+## Ссылки
 
-- [Репозиторий новой версии](https://github.com/RussianInvestments/investAPI)
+Репозитарий новой версии: [https://github.com/Tinkoff/investAPI](https://github.com/Tinkoff/investAPI)
 
-- [Документация новой версии](https://russianinvestments.github.io/investAPI/)
+Документация новой версии: [https://tinkoff.github.io/investAPI/](https://tinkoff.github.io/investAPI/)
 
-Поддерживаемые протоколы — [gRPC](https://RussianInvestments.github.io/investAPI/grpc/) и [REST](https://RussianInvestments.github.io/investAPI/swagger-ui/).
+Поддерживаются протоколы:
 
-## Связь
+* gRPC – [https://tinkoff.github.io/investAPI/grpc/](https://tinkoff.github.io/investAPI/grpc/)
+* REST – [https://tinkoff.github.io/investAPI/swagger-ui/](https://tinkoff.github.io/investAPI/swagger-ui/)
 
-Если у вас остались вопросы, напишите нам:
+## Вопросы
 
-* в [неофициальный Телеграм-чат](https://t.me/joinchat/VaW05CDzcSdsPULM);
-* на почту — [invest-public-api@tbank.ru](mailto:invest-public-api@tbank.ru).
+Если остались вопросы, пишите:
+
+* в [неофициальный телеграм-чат](https://t.me/joinchat/VaW05CDzcSdsPULM)
+* по почте [invest-public-api@tinkoff.ru](mailto:invest-public-api@tinkoff.ru)
+

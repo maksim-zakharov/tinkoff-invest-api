@@ -1,59 +1,71 @@
-### Можно ли узнать идентификатор поручения из операции? 
+####[Можно ли узнать идентификатор поручения из операции? ](#3.1)  
+####[Почему в операции пустой Figi?](#3.2)  
+####[Будут ли отображаться операции по бумагам, которые прошли делистинг?](#3.3)  
+####[Параметр quantity в лотах или количествах?](#3.4)  
+####[Как с помощью TINKOFF INVEST API получить брокерский отчёт?](#3.5)  
+####[Как получить информацию о позициях и доходности портфеля?](#3.6)  
+####[Как получить информацию об операциях?](#3.7)  
+####[Как понять какие бумаги в портфеле заблокированы по решению ЦБ?](#3.8)  
+####[В чем различие между параметрами positions.blocked и positions.blocked_lots в методе getPortfolio?](#3.9)  
+####[Что за значения приходят в positions.expectedYield в методе getPortfolio?](#3.10)  
 
-Нет, сейчас такой информации в операции нет, но мы работаем над этим. 
+###Можно ли узнать идентификатор поручения из операции? <a id="3.1"></a>
 
-### Почему в операции пустой FIGI? 
+Нет, в данный момент такой информации в операции нет, но мы работаем над этим. 
 
-Такое может быть у операций внесения денежных средств и подобных — у них нет связанного с операцией биржевого
-инструмента.
+###Почему в операции пустой Figi? <a id="3.2"></a>
 
-### Будут ли отображаться операции по бумагам, которые прошли делистинг?
+Такое возможно для операций внесения денежных средств и подобных, т.к. нет связанного с операцией биржевого
+инструмента
 
-Да. Также операции по бумагам будут отображаться после различных [корпоративных действий](/investAPI/faq_corp_action/).
+###Будут ли отображаться операции по бумагам, которые прошли делистинг? <a id="3.3"></a>
 
-### Параметр `quantity` передаётся в лотах или количествах?
+Да, такие операции отображаться будут. В том числе будут отображаться операции по бумагам после
+различных корпоративных действий. Подробнее: [Корпоративные действия](/investAPI/faq_corp_action/).
 
-В рамках сервиса операций параметр `quantity` всегда передаётся в количестве штук инструмента.
+###Параметр quantity в лотах или количествах? <a id="3.4"></a>
 
-### Как с помощью T-Invest API получить брокерский отчёт? 
+В рамках сервиса операций данный параметр всегда передаётся в лотах инструмента.
 
-Через метод [GetBrokerReport](/investAPI/operations#getbrokerreport).
+###Как с помощью TINKOFF INVEST API получить брокерский отчёт? <a id="3.5"></a>
 
-Обратите внимание: получение брокерского отчёта асинхронно — сначала вы запрашиваете формирование
-отчёта, отправляя пакет [generate_broker_report_request](/investAPI/operations#generatebrokerreportrequest), и
-получаете идентификатор задачи формирования отчёта — параметр `task_id.` После этого можно запрашивать
-отчёт по его идентификатору. 
+Для получения брокерского отчёта можно воспользоваться методом [GetBrokerReport](/investAPI/operations#getbrokerreport).
+Обратите внимание, что получение брокерского отчёта асинхронно, т.е. сперва вы запрашиваете формирование
+отчёта (отправляя пакет [generate_broker_report_request](/investAPI/operations#generatebrokerreportrequest)),
+получаете идентификатор задачи формирования отчёта (параметр task_id). После этого вы можете запросить 
+отчёт по его идентификатору, в случае если формирование отчёта ещё не закончено, вы получите соответствующее
+сообщение об ошибке.
 
-Если формирование отчёта ещё не закончено, вы получите соответствующее сообщение об ошибке.
+Подробнее о брокерском отчёте: [Отчёты и справки](https://www.tinkoff.ru/invest/account/help/trade-on-bs/get-report/).
 
-[Подробнее о брокерском отчёте](https://www.tbank.ru/invest/account/help/trade-on-bs/get-report/)
+###Как получить информацию о позициях и доходности портфеля?<a id="3.6"></a>
 
-### Как получить информацию о позициях и доходности портфеля?
+Для получения информации о позиция и доходности портфеля необходимо подписаться на на метод [PortfolioStream](/investAPI/operations/#portfoliostream) или выполнить запросы в [метод получения портфеля](/investAPI/operations/#getportfolio) и [метод получения позиций по счету](/investAPI/operations/#getpositions).
+В [PortfolioStream](/investAPI/operations/#portfoliostream) не отображаются заблокированные биржей бумаги. 
+Получить заблокированные бумаги можно в методе [GetPortfolio](/investAPI/operations/#getportfolio) и [GetPossitions](/investAPI/operations/#getpositions).
 
-Одним из способов:
+###Как получить информацию об операциях?<a id="3.7"></a>
 
-- Подпишитесь на [PortfolioStream](/investAPI/operations/#portfoliostream). В стриме не отображаются бумаги, заблокированные биржей. 
-- Используйте методы [GetPortfolio](/investAPI/operations/#getportfolio) и [GetPossitions](/investAPI/operations/#getpositions). Через них также можно получить бумаги, заблокированные биржей. 
+Для получения информации об операциях в TINKOFF INVEST API предусмотрен метод [getOperationsByCursor](/investAPI/operations#getoperationsbycursor).
+Данный метод имеет широкие возможности фильтрации, а также возвращает постраничную информацию об операциях.
+Для вызова метода во входных параметрах достаточно указать только **`account_id`**.
 
-### Как получить информацию об операциях?
+Также в TINKOFF INVEST API для получения списка операций существует метод [getOperations](/investAPI/operations#getoperations), являющийся более старой версией метода [getOperationsByCursor](/investAPI/operations#getoperationsbycursor).
+Однако, метод [getOperationsByCursor](/investAPI/operations#getoperationsbycursor) является более **предпочтительным** для использования.
+Для вызова метода [getOperations](/investAPI/operations#getoperations) во входных параметрах достаточно указать только **`account_id`**.
 
-Через [getOperationsByCursor](/investAPI/operations#getoperationsbycursor). Метод возвращает постраничную информацию обо всех операциях, в том числе отменённых, поддерживает пагинацию и расширенную фильтрацию.
-Во входных параметрах запроса достаточно указать только `account_id`.
+**Важно!!!** Метод [getOperations](/investAPI/operations#getoperations) возвращает только последнюю тысячу операций.
 
-Также в T-Invest API есть метод [getOperations](/investAPI/operations#getoperations) — это более старая версия [getOperationsByCursor](/investAPI/operations#getoperationsbycursor). Мы рекомендуем использовать [getOperationsByCursor](/investAPI/operations#getoperationsbycursor).
 
->**Важно**<br>
->Метод [getOperations](/investAPI/operations#getoperations) возвращает только последнюю тысячу операций.
+###Как понять какие бумаги в портфеле заблокированы по решению ЦБ? <a id="3.8"></a>
 
-### Как понять, какие бумаги в портфеле заблокированы по решению ЦБ?
+В методах [getPortfolio](/investAPI/operations#getportfolio) и  [getPositions](/investAPI/operations#getpositions) добавлены специальные булевы параметры, означающие, что данный инструмент заблокирован депозитарием.
 
-В методах [getPortfolio](/investAPI/operations#getportfolio) и [getPositions](/investAPI/operations#getpositions) есть специальные булевы параметры `exchange_blocked` и `blocked`. Они принимают значение `true`, если инструмент заблокирован депозитарием.
+###В чем различие между параметрами positions.blocked и positions.blocked_lots в методе [getPortfolio](/investAPI/operations#getportfolio)? <a id="3.9"></a>
 
-### В чем различие между параметрами `positions.blocked` и `positions.blocked_lots` в методе [getPortfolio](/investAPI/operations#getportfolio)? 
+При выставлении лимитных заявок блокируется выставленное количество бумаг на счет, это количество и является значением параметра positions.blocked_lots. Параметр positions.blocked, булевый параметр, значение которого отображает заблокирован ли инструмент депозитарием.
 
-- `positions.blocked_lots` — количество заблокированных бумаг на счёте. Используется при выставлении лимитных заявок. 
-- `positions.blocked` — булевый параметр. Отображает, заблокирован ли инструмент депозитарием.
+###Что за значения приходят в positions.expectedYield в методе [getPortfolio](/investAPI/operations#getportfolio)?<a id="3.10"></a>
 
-### Что за значения приходят в `positions.expectedYield` в методе [getPortfolio](/investAPI/operations#getportfolio)?
-
-В параметрах `positions.expectedYield` и `positions.expectedYieldFifo` возвращается значение текущей рассчитанной доходности позиции — это значение в валюте инструмента.
+В методе [getPortfolio](/investAPI/operations#getportfolio) в параметрах positions.expectedYield и positions.expectedYieldFifo
+возвращается значение текущей рассчитанной доходность позиции - это значение в валюте инструмента.
